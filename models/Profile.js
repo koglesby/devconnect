@@ -13,7 +13,7 @@ const ProfileSchema = new Schema({
     max: 40
   },
   company: {
-    type: string
+    type: String
   },
   website: {
     type: String
@@ -116,4 +116,4 @@ const ProfileSchema = new Schema({
   }
 });
 
-module.export = Profile = mongoose.model("profile", ProfileSchema);
+module.exports = Profile = mongoose.model("profile", ProfileSchema);
