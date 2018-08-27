@@ -1,35 +1,35 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const mongoose = require("mongoose");
-const passport = require("passport");
+const mongoose = require('mongoose');
+const passport = require('passport');
 
 // Load Validation
-const validateProfileInput = require("../../validation/profile");
+const validateProfileInput = require('../../validation/profile');
 
 // Load Profile Model
-const Profile = require("../../models/Profile");
+const Profile = require('../../models/Profile');
 
 // Load User Profile
-const User = require("../../models/User");
+const User = require('../../models/User');
 
 // @route   GET /api/profils/test
 // @desc    Tests profiles route
 // @access  Public
-router.get("/test", (req, res) => res.json({ msg: "Profile works" }));
+router.get('/test', (req, res) => res.json({ msg: 'Profile works' }));
 
 // @route   GET /api/profile
 // @desc    Get current user profile
 // @access  Private
 router.get(
-  "/",
-  passport.authenticate("jwt", { session: false }),
+  '/',
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
     Profile.findOne({ user: req.user.id })
-      .populate("user", ["name", "avatar"])
+      .populate('user', ['name', 'avatar'])
       .then(profile => {
         if (!profile) {
-          errors.noprofile = "there is no profile for this user";
+          errors.noprofile = 'there is no profile for this user';
           return res.status(404).json(errors);
         }
         res.json(profile);
@@ -42,8 +42,8 @@ router.get(
 // @desc    Create or Edit user profile
 // @access  Private
 router.post(
-  "/",
-  passport.authenticate("jwt", { session: false }),
+  '/',
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateProfileInput(req.body);
 
@@ -65,8 +65,8 @@ router.post(
     if (req.body.githubusername)
       profileFields.githubusername = req.body.githubusername;
     // Skills - split into array
-    if (typeof req.body.skills !== "undefined") {
-      profileFields.skills = req.body.skills.split(",");
+    if (typeof req.body.skills !== 'undefined') {
+      profileFields.skills = req.body.skills.split(',');
     }
 
     /// Social
@@ -91,7 +91,7 @@ router.post(
         //Check if handle exists
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
           if (profile) {
-            errors.handle = "That handle already exists";
+            errors.handle = 'That handle already exists';
             res.status(400).json(errors);
           }
 
