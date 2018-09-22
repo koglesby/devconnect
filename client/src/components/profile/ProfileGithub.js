@@ -1,42 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { CLIENT_ID, CLIENT_SECRET } from '../../keys';
 
 class ProfileGithub extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientId: CLIENT_ID,
-      clientSecret: CLIENT_SECRET,
-      count: 5,
-      sort: 'created: asc',
       repos: []
     };
   }
 
   componentDidMount() {
     const { username } = this.props;
-    const { count, sort, clientId, clientSecret } = this.state;
 
     if (username !== '') {
-      fetch(
-        `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
-      )
-        .then(res => {
-          if (!res.ok) {
-            console.log(res.status, res.statusText);
-            throw Error(res.statusText);
-          }
-          return res.json();
-        })
-        .then(data => {
-          this.setState({ repos: data });
-          console.log('data: ', data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      axios.get('/api/profile/github/' + username).then(res => {
+        this.setState({ repos: res.data });
+      });
     }
   }
 

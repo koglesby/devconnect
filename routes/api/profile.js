@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const https = require('https');
+const CLIENT_ID = require('../../config/keys').CLIENT_ID;
+const CLIENT_SECRET = require('../../config/keys').CLIENT_SECRET;
 
 // Load Validation
 const validateProfileInput = require('../../validation/profile');
@@ -23,6 +26,33 @@ function removeProtocol(str) {
 // @desc    Tests profiles route
 // @access  Public
 router.get('/test', (req, res) => res.json({ msg: 'Profile works' }));
+
+router.get('/github/:username', (req, res) => {
+  // res.json(req.params.username);
+  const username = req.params.username;
+  const count = 5;
+  const sort = 'created:asc';
+  // const CLIENT_ID = '0ec795a5b44fd9d39483';
+  // const CLIENT_SECRET = '85127e731f3e3488d9b5d77831a971281c4020c0';
+
+  var options = {
+    host: 'api.github.com',
+    path: `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`,
+    method: 'GET',
+    headers: { 'user-agent': 'node.js' }
+  };
+
+  https.get(options, response => {
+    let data = '';
+    response
+      .on('data', chunk => {
+        data += chunk;
+      })
+      .on('end', () => {
+        res.send(data);
+      });
+  });
+});
 
 // @route   GET /api/profile
 // @desc    Get current user profile
@@ -95,6 +125,7 @@ router.get('/user/:user_id', (req, res) => {
         errors.noprofile = 'There is no profile for this user';
         return res.status(404).json(errors);
       }
+      console.log('backend!');
       res.json(profile);
     })
     .catch(err =>
