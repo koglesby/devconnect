@@ -27,13 +27,13 @@ function removeProtocol(str) {
 // @access  Public
 router.get('/test', (req, res) => res.json({ msg: 'Profile works' }));
 
+// @route   GET /api/github/:username
+// @desc    Get user's repos from github
+// @access  Public
 router.get('/github/:username', (req, res) => {
-  // res.json(req.params.username);
   const username = req.params.username;
   const count = 5;
   const sort = 'created:asc';
-  // const CLIENT_ID = '0ec795a5b44fd9d39483';
-  // const CLIENT_SECRET = '85127e731f3e3488d9b5d77831a971281c4020c0';
 
   var options = {
     host: 'api.github.com',
@@ -204,7 +204,7 @@ router.post(
 
 // @route   POST /api/profile/experience
 // @desc    Add experience to profile
-// @access  Privata
+// @access  Private
 router.post(
   '/experience',
   passport.authenticate('jwt', { session: false }),
@@ -272,7 +272,7 @@ router.post(
 
 // @route   DELETE /api/profile/experience/:exp_id
 // @desc    Delete experience from profile
-// @access  Privata
+// @access  Private
 router.delete(
   '/experience/:exp_id',
   passport.authenticate('jwt', { session: false }),
@@ -296,7 +296,7 @@ router.delete(
 
 // @route   DELETE /api/profile/education/:exp_id
 // @desc    Delete education from profile
-// @access  Privata
+// @access  Private
 router.delete(
   '/education/:edu_id',
   passport.authenticate('jwt', { session: false }),
@@ -320,7 +320,7 @@ router.delete(
 
 // @route   DELETE /api/profile
 // @desc    Delete user and profile
-// @access  Privata
+// @access  Private
 router.delete(
   '/',
   passport.authenticate('jwt', { session: false }),
