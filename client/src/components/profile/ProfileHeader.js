@@ -30,7 +30,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.website) ? null : (
                   <a
                     className="text-white p-2"
-                    href={`https://${profile.website}`}
+                    href={`http://${profile.website}`}
                   >
                     <i className="fas fa-globe fa-2x" />
                   </a>
@@ -44,16 +44,37 @@ class ProfileHeader extends Component {
                   </a>
                 )}
                 {isEmpty(profile.social && profile.social.facebook) ? null : (
-                  <a className="text-white p-2" href={profile.social.facebook}>
-                    <i className="fab fa-facebook fa-2x" />{' '}
+                  <a
+                    className="text-white p-2"
+                    href={`http://${profile.social.facebook}`}
+                  >
+                    <i className="fab fa-facebook fa-2x" />
                   </a>
                 )}
-                <a className="text-white p-2" href="#">
-                  <i className="fab fa-linkedin fa-2x" />
-                </a>
-                <a className="text-white p-2" href="#">
-                  <i className="fab fa-instagram fa-2x" />
-                </a>
+                {isEmpty(profile.social && profile.social.instagram) ? null : (
+                  <a
+                    className="text-white p-2"
+                    href={`http://${profile.social.instagram}`}
+                  >
+                    <i className="fab fa-instagram fa-2x" />
+                  </a>
+                )}
+                {isEmpty(profile.social && profile.social.youtube) ? null : (
+                  <a
+                    className="text-white p-2"
+                    href={`http://${profile.social.youtube}`}
+                  >
+                    <i className="fab fa-youtube fa-2x" />
+                  </a>
+                )}
+                {isEmpty(profile.social && profile.social.linkedin) ? null : (
+                  <a
+                    className="text-white p-2"
+                    href={`http://${profile.social.linkedin}`}
+                  >
+                    <i className="fab fa-linkedin fa-2x" />
+                  </a>
+                )}
               </p>
             </div>
           </div>
