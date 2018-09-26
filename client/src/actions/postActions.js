@@ -69,20 +69,22 @@ export const getPost = id => dispatch => {
 
 // Delete Post
 export const deletePost = id => dispatch => {
-  axios
-    .delete('/api/posts/' + id)
-    .then(res =>
-      dispatch({
-        type: DELETE_POST,
-        payload: id
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  if (window.confirm('Delete this Post?')) {
+    axios
+      .delete('/api/posts/' + id)
+      .then(res =>
+        dispatch({
+          type: DELETE_POST,
+          payload: id
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
 };
 
 // Like Post
@@ -142,20 +144,22 @@ export const addComment = (postId, commentData) => dispatch => {
 
 // Delete Comment
 export const deleteComment = (postId, commentId) => dispatch => {
-  axios
-    .delete(`/api/posts/comment/${postId}/${commentId}`)
-    .then(res =>
-      dispatch({
-        type: GET_POST,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  if (window.confirm('Delete this comment?')) {
+    axios
+      .delete(`/api/posts/comment/${postId}/${commentId}`)
+      .then(res =>
+        dispatch({
+          type: GET_POST,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
 };
 
 // Set loading state
