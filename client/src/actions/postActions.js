@@ -5,7 +5,8 @@ import {
   GET_POSTS,
   POST_LOADING,
   LIKE_POST,
-  DELETE_POST
+  DELETE_POST,
+  GET_POST
 } from './types';
 
 // Add Post
@@ -45,11 +46,23 @@ export const getPosts = () => dispatch => {
     );
 };
 
-// Set loading state
-export const setPostLoading = () => {
-  return {
-    type: POST_LOADING
-  };
+// Get Posts
+export const getPost = id => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get('/api/posts/' + id)
+    .then(res =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POST,
+        payload: null
+      })
+    );
 };
 
 // Delete Post
@@ -104,4 +117,11 @@ export const unlikePost = id => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+// Set loading state
+export const setPostLoading = () => {
+  return {
+    type: POST_LOADING
+  };
 };
