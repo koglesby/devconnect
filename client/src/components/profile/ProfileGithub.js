@@ -23,16 +23,18 @@ class ProfileGithub extends Component {
 
   render() {
     const { repos } = this.state;
+    // helper function
+    const removeProtocol = str => {
+      return str.replace(/(^\w+:|^)\/\//, '');
+    };
 
     const repoItems = repos.map(repo => (
       <div key={repo.id} className="card card-body mb-2">
         <div className="row">
           <div className="col-md-6">
-            <h4>
-              <Link to={repo.html_url} className="text-info" target="_blank">
-                {repo.name}
-              </Link>
-            </h4>
+            <a href={repo.html_url} className="text-info">
+              <h4>{repo.name}</h4>
+            </a>
             <p>{repo.description}</p>
           </div>
           <div className="col-md-6">

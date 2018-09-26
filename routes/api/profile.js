@@ -160,7 +160,7 @@ router.post(
     profileFields.bio = req.body.bio ? req.body.bio : '';
     profileFields.status = req.body.status ? req.body.status : '';
     profileFields.githubusername = req.body.githubusername
-      ? req.body.githubusername
+      ? githubusername
       : '';
     // Skills - split into array
     if (typeof req.body.skills !== 'undefined') {
@@ -169,12 +169,16 @@ router.post(
 
     /// Social
     profileFields.social = {};
-    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+    if (req.body.youtube)
+      profileFields.social.youtube = removeProtocol(req.body.youtube);
     if (req.body.twitter)
       profileFields.social.twitter = removeProtocol(req.body.twitter);
-    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
-    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
-    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+    if (req.body.facebook)
+      profileFields.social.facebook = removeProtocol(req.body.facebook);
+    if (req.body.linkedin)
+      profileFields.social.linkedin = removeProtocol(req.body.linkedin);
+    if (req.body.instagram)
+      profileFields.social.instagram = removeProtocol(req.body.instagram);
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
