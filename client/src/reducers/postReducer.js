@@ -2,7 +2,8 @@ import {
   ADD_POST,
   GET_POSTS,
   POST_LOADING,
-  DELETE_POST
+  DELETE_POST,
+  LIKE_POST
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +24,20 @@ export default function(state = initialState, action) {
         ...state,
         posts: action.payload,
         loading: false
+      };
+    case LIKE_POST:
+      return {
+        ...state,
+        posts: state.posts.map(post => {
+          if (post._id === action.payload._id) {
+            return {
+              ...post,
+              ...action.payload
+            };
+          } else {
+            return post;
+          }
+        })
       };
     case ADD_POST:
       return {

@@ -4,6 +4,7 @@ import {
   GET_ERRORS,
   GET_POSTS,
   POST_LOADING,
+  LIKE_POST,
   DELETE_POST
 } from './types';
 
@@ -73,7 +74,12 @@ export const deletePost = id => dispatch => {
 export const likePost = id => dispatch => {
   axios
     .post('/api/posts/like/' + id)
-    .then(res => dispatch(getPosts()))
+    .then(res => {
+      dispatch({
+        type: LIKE_POST,
+        payload: res.data //pass in updated post
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -86,7 +92,12 @@ export const likePost = id => dispatch => {
 export const unlikePost = id => dispatch => {
   axios
     .post('/api/posts/unlike/' + id)
-    .then(res => dispatch(getPosts()))
+    .then(res => {
+      dispatch({
+        type: LIKE_POST,
+        payload: res.data // pass in updated post
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
