@@ -160,7 +160,7 @@ router.post(
     profileFields.bio = req.body.bio ? req.body.bio : '';
     profileFields.status = req.body.status ? req.body.status : '';
     profileFields.githubusername = req.body.githubusername
-      ? githubusername
+      ? req.body.githubusername
       : '';
     // Skills - split into array
     if (typeof req.body.skills !== 'undefined') {
@@ -177,6 +177,7 @@ router.post(
       profileFields.social.facebook = removeProtocol(req.body.facebook);
     if (req.body.linkedin)
       profileFields.social.linkedin = removeProtocol(req.body.linkedin);
+
     if (req.body.instagram)
       profileFields.social.instagram = removeProtocol(req.body.instagram);
 
