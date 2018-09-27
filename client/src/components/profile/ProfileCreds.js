@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
-import isEmpty from '../../validation/is-empty';
 
 class ProfileCreds extends Component {
   render() {

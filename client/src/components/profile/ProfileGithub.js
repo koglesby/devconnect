@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -23,10 +22,6 @@ class ProfileGithub extends Component {
 
   render() {
     const { repos } = this.state;
-    // helper function
-    const removeProtocol = str => {
-      return str.replace(/(^\w+:|^)\/\//, '');
-    };
 
     const repoItems = repos.map(repo => (
       <div key={repo.id} className="card card-body mb-2">
