@@ -3,8 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 const https = require('https');
-const CLIENT_ID = require('../../config/keys').CLIENT_ID;
-const CLIENT_SECRET = require('../../config/keys').CLIENT_SECRET;
+const keys = require('../../config/keys');
 
 // Load Validation
 const validateProfileInput = require('../../validation/profile');
@@ -37,7 +36,9 @@ router.get('/github/:username', (req, res) => {
 
   var options = {
     host: 'api.github.com',
-    path: `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`,
+    path: `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${
+      keys.CLIENT_ID
+    }&client_secret=${keys.CLIENT_SECRET}`,
     method: 'GET',
     headers: { 'user-agent': 'node.js' }
   };
