@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
+import isEmpty from '../../validation/is-empty';
 
 class Navbar extends Component {
   onLogoutClick = e => {
@@ -11,8 +12,10 @@ class Navbar extends Component {
     this.props.clearCurrentProfile();
     this.props.logoutUser();
   };
+
   render() {
     const { isAuthenticated, user } = this.props.auth;
+    const { profile } = this.props.profile;
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
@@ -26,15 +29,23 @@ class Navbar extends Component {
             Dashboard
           </Link>
         </li>
+
         <li className="nav-item">
-          <a href="" onClick={this.onLogoutClick} className="nav-link">
+          <Link
+            to={!isEmpty(profile) ? '/profile/' + profile.handle : '/'}
+            className="nav-link"
+          >
             <img
               className="rounded-circle"
               src={user.avatar}
               alt={user.name}
               style={{ width: '25px', marginRight: '5px' }}
               title="You must have a gravatar connected to your email to display an image"
-            />{' '}
+            />
+          </Link>
+        </li>
+        <li className="nav-item">
+          <a href="" onClick={this.onLogoutClick} className="nav-link">
             Logout
           </a>
         </li>
@@ -89,11 +100,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  profile: state.profile
 });
 
 export default connect(
