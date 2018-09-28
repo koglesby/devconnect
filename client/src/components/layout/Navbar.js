@@ -8,7 +8,6 @@ import isEmpty from '../../validation/is-empty';
 
 class Navbar extends Component {
   onLogoutClick = e => {
-    e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
   };
@@ -44,9 +43,9 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <a href="" onClick={this.onLogoutClick} className="nav-link">
+          <Link to="/" onClick={this.onLogoutClick} className="nav-link">
             Logout
-          </a>
+          </Link>
         </li>
       </ul>
     );
