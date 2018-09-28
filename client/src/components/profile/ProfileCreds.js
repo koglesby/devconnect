@@ -72,19 +72,31 @@ class ProfileCreds extends Component {
     ));
 
     return (
-      <div className="row">
-        {expItems.length > 0 ? (
-          <div className="col-md-6">
-            <h3 className="text-center text-info">Experience</h3>
-            <ul className="list-group">{expItems}</ul>
+      <div>
+        {expItems.length > 0 && eduItems.length > 0 ? (
+          <div className="row">
+            <div className="col-md-6">
+              <h3 className="text-center text-info">Experience</h3>
+              <ul className="list-group">{expItems}</ul>
+            </div>
+            <div className="col-md-6">
+              <h3 className="text-center text-info">Education</h3>
+              <ul className="list-group">{eduItems}</ul>
+            </div>
           </div>
-        ) : null}
-
-        {eduItems.length > 0 ? (
-          <div className="col-md-6">
-            {' '}
-            <h3 className="text-center text-info">Education</h3>
-            <ul className="list-group">{eduItems}</ul>
+        ) : expItems.length > 0 ? (
+          <div className="row">
+            <div className="col-md-12">
+              <h3 className="text-center text-info">Experience</h3>
+              <ul className="list-group">{expItems}</ul>
+            </div>
+          </div>
+        ) : eduItems.length > 0 ? (
+          <div className="row">
+            <div className="col-md-12">
+              <h3 className="text-center text-info">Education</h3>
+              <ul className="list-group">{eduItems}</ul>
+            </div>
           </div>
         ) : null}
       </div>

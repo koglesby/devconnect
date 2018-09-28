@@ -29,17 +29,16 @@ class Navbar extends Component {
             Dashboard
           </Link>
         </li>
-
-        <li className="nav-item">
+        <li className="nav-link">
           <Link
             to={!isEmpty(profile) ? '/profile/' + profile.handle : '/'}
-            className="nav-link"
+            className=""
           >
             <img
               className="rounded-circle"
               src={user.avatar}
               alt={user.name}
-              style={{ width: '25px', marginRight: '5px' }}
+              style={{ width: '25px' }}
               title="You must have a gravatar connected to your email to display an image"
             />
           </Link>
